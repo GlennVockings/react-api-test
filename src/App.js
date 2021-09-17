@@ -26,19 +26,11 @@ function App() {
     return data
   }
 
-  // Draw a card
-  const drawCard = async () => {
-    const res = await fetch(`https://deckofcardsapi.com/api/deck/${deck.id}/draw/?count=1`)
-    const data = await res.json()
-    console.log(data)
-    setCard(data)
-  }
-
   return (
     <div className="App">
       <Header />
       <Status deck={deck} />
-      <Button onAdd={drawCard} />
+      <Button />
       <Dealer card={card} />
     </div>
   );
