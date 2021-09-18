@@ -7,16 +7,18 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [deck, setDeck] = useState({})
-  const [card, setCard] = useState([])
+  const [card, setCard] = useState()
+  const [remain, setRemain] = useState()
 
   useEffect(() => {
     const getDeck = async () => {
       const getDeckfromAPI = await fetchCards()
       setDeck(getDeckfromAPI)
+      setRemain(deck.remaining)
     }
 
     getDeck()
-  }, [])
+  }, [deck.remaining])
 
   // Shuffle new deck
   const fetchCards = async () => {
@@ -25,26 +27,37 @@ function App() {
     return data
   }
 
-  useEffect(() => {
-    const getCard = async (id) => {
-      const drawCardfromAPI = await drawCard(id)
-      setCard(drawCardfromAPI)
-    }
-  }, [])
-
   // Draw card
+  const getCard = async (id) => {
+    const getCardfromAPI = await drawCard(id);
+    setCard(getCardfromAPI)
+    setRemain(getCardfromAPI.remaining)
+  }
+
+
   const drawCard = async (id) => {
     const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/draw/?count=1`)
     const data = await res.json()
-    console.log(data)
+    return data
+  }
+
+  const shuffle = async (id) => {
+    const shufflefromAPI = await getShuffle(id);
+    setRemain(shufflefromAPI.remaining)
+    setCard()
+  }
+
+  const getShuffle = async (id) => {
+    const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/shuffle/`)
+    const data = await res.json()
     return data
   }
 
   return (
     <div className="App">
       <Header />
-      <Status deck={deck} />
-      <Button />
+      <Status deck={deck} remain={remain} card={card} />
+      <Button draw={() => getCard(deck.deck_id)} shuffle={() => shuffle(deck.deck_id)}/>
       <Dealer card={card} />
     </div>
   );

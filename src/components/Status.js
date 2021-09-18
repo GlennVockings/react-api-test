@@ -1,11 +1,14 @@
 import React from 'react'
 
-export const Status = ({ deck }) => {
+export const Status = ({ deck, remain }) => {
     return (
-        <div>
-            <h2>Is the Deck shuffled <span>{deck.shuffled ? 'Yes' : 'No' }</span></h2>
-            <h2>Deck ID: {deck.deck_id}</h2>
-            <h2>Remaining Cards: {deck.remaining}</h2>
+        <div className="status">
+            <h4>Deck ID: {deck.deck_id}</h4>
+            <h4>Remaining Cards: {remain}</h4>
         </div>
     )
+}
+
+Status.defaultProps = {
+    remain: 52
 }
