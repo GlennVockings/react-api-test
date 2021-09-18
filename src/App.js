@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [deck, setDeck] = useState({})
-  const [card, setCard] = useState({})
+  const [card, setCard] = useState([])
 
   useEffect(() => {
     const getDeck = async () => {
@@ -21,6 +21,20 @@ function App() {
   // Shuffle new deck
   const fetchCards = async () => {
     const res = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
+    const data = await res.json()
+    return data
+  }
+
+  useEffect(() => {
+    const getCard = async (id) => {
+      const drawCardfromAPI = await drawCard(id)
+      setCard(drawCardfromAPI)
+    }
+  }, [])
+
+  // Draw card
+  const drawCard = async (id) => {
+    const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/draw/?count=1`)
     const data = await res.json()
     console.log(data)
     return data
