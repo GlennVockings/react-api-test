@@ -4,12 +4,16 @@ import { Status } from './components/Status';
 import { Button } from './components/Button';
 import { Dealer } from './components/Dealer';
 import { useState, useEffect } from 'react';
+import { Players } from './components/Players';
 
 function App() {
   const [deck, setDeck] = useState({})
-  const [card, setCard] = useState()
-  const [remain, setRemain] = useState()
+  const [dealer, setDealer] = useState()
+  const [remain, setRemain] = useState([])
+  const [player, setPlayer] = useState()
+  const [playerTotal, setPlayerTotal] = useState()
 
+  // creates a new deck on reload
   useEffect(() => {
     const getDeck = async () => {
       const getDeckfromAPI = await fetchCards()
@@ -27,28 +31,58 @@ function App() {
     return data
   }
 
-  // Draw card
-  const getCard = async (id) => {
+  // Draw a card to the dealer
+  const giveDealerCard = async (id) => {
     const getCardfromAPI = await drawCard(id);
-    setCard(getCardfromAPI)
-    setRemain(getCardfromAPI.remaining)
+    const code = getCardfromAPI.cards[0].code;
+    await givePile(deck.deck_id, code, 'dealer');
+    const dealerList = await listPile(deck.deck_id, 'dealer');
+    setDealer(dealerList);
+    setRemain(getCardfromAPI.remaining);
   }
 
+  // Draw a card to the player
+  const givePlayerCard = async (id) => {
+    const getCardfromAPI = await drawCard(id);
+    const code = getCardfromAPI.cards[0].code;
+    await givePile(deck.deck_id, code, 'player1');
+    const playerList = await listPile(deck.deck_id, 'player1');
+    setPlayer(playerList.piles.player1.cards);
+    setRemain(getCardfromAPI.remaining);
+  }
 
+  // draws a card from the API
   const drawCard = async (id) => {
     const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/draw/?count=1`)
     const data = await res.json()
     return data
   }
 
+  // function used on button click to call the api to shuffle the cards
   const shuffle = async (id) => {
     const shufflefromAPI = await getShuffle(id);
     setRemain(shufflefromAPI.remaining)
-    setCard()
+    setDealer();
+    setPlayer();
   }
 
+  // the api call that shuffles the cards back into the deck
   const getShuffle = async (id) => {
     const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/shuffle/`)
+    const data = await res.json()
+    return data
+  }
+
+  // adds card to the dealer pile via the api call
+  const givePile = async (id, card, pile) => {
+    const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/pile/${pile}/add/?cards=${card}`)
+    const data = await res.json()
+    return data
+  }
+
+  // lists the cards in the dealer pile
+  const listPile = async (id, pile) => {
+    const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/pile/${pile}/list`)
     const data = await res.json()
     return data
   }
@@ -56,9 +90,12 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Status deck={deck} remain={remain} card={card} />
-      <Button draw={() => getCard(deck.deck_id)} shuffle={() => shuffle(deck.deck_id)}/>
-      <Dealer card={card} />
+      <Status deck={deck} remain={remain} card={dealer} />
+      <Button deal={() => giveDealerCard(deck.deck_id)} shuffle={() => shuffle(deck.deck_id)} player={() => givePlayerCard(deck.deck_id)} />
+      <div className="people">
+        <Dealer dealer={dealer} />
+        <Players player={player} />
+      </div>
     </div>
   );
 }
