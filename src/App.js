@@ -33,9 +33,7 @@ function App() {
 
   // Draw a card to the dealer
   const giveDealerCard = async (id) => {
-    const getCardfromAPI = await drawCard(id);
-    const code = getCardfromAPI.cards[0].code;
-    await givePile(deck.deck_id, code, 'dealer');
+    const getCardfromAPI = await drawCard(id, 'dealer');
     const dealerList = await listPile(deck.deck_id, 'dealer');
     setDealer(dealerList);
     setRemain(getCardfromAPI.remaining);
@@ -43,19 +41,21 @@ function App() {
 
   // Draw a card to the player
   const givePlayerCard = async (id) => {
-    const getCardfromAPI = await drawCard(id);
-    const code = getCardfromAPI.cards[0].code;
-    await givePile(deck.deck_id, code, 'player1');
+    const getCardfromAPI = await drawCard(id, 'player1');
     const playerList = await listPile(deck.deck_id, 'player1');
     setPlayer(playerList.piles.player1.cards);
     setRemain(getCardfromAPI.remaining);
   }
 
-  // draws a card from the API
-  const drawCard = async (id) => {
+  // draws a card from the API and gives to the pile
+  const drawCard = async (id, pile) => {
     const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/draw/?count=1`)
-    const data = await res.json()
-    return data
+    const data = await res.json();
+    var card = data.cards[0].code
+    const res1 = await fetch(`https://deckofcardsapi.com/api/deck/${id}/pile/${pile}/add/?cards=${card}`)
+    const data1 = await res1.json()
+    console.log(data1)
+    return data1
   }
 
   // function used on button click to call the api to shuffle the cards
@@ -73,14 +73,7 @@ function App() {
     return data
   }
 
-  // adds card to the dealer pile via the api call
-  const givePile = async (id, card, pile) => {
-    const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/pile/${pile}/add/?cards=${card}`)
-    const data = await res.json()
-    return data
-  }
-
-  // lists the cards in the dealer pile
+  // lists the cards in the pile
   const listPile = async (id, pile) => {
     const res = await fetch(`https://deckofcardsapi.com/api/deck/${id}/pile/${pile}/list`)
     const data = await res.json()
