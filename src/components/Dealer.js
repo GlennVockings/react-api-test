@@ -1,8 +1,5 @@
-import React from 'react'
 
 export const Dealer = ({ dealer }) => {
-
-
     return (
         <div className="person-container">
             <h2>Dealer</h2>

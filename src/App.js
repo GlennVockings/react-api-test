@@ -3,7 +3,7 @@ import { Header } from './components/Header';
 import { Status } from './components/Status';
 import { Button } from './components/Button';
 import { Dealer } from './components/Dealer';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Players } from './components/Players';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   const [dealer, setDealer] = useState()
   const [remain, setRemain] = useState([])
   const [player, setPlayer] = useState()
-  const [playerTotal, setPlayerTotal] = useState()
+  const [total, stTotal] = useState(0)
 
   // creates a new deck on reload
   useEffect(() => {
@@ -54,7 +54,6 @@ function App() {
     var card = data.cards[0].code
     const res1 = await fetch(`https://deckofcardsapi.com/api/deck/${id}/pile/${pile}/add/?cards=${card}`)
     const data1 = await res1.json()
-    console.log(data1)
     return data1
   }
 
@@ -87,7 +86,9 @@ function App() {
       <Button deal={() => giveDealerCard(deck.deck_id)} shuffle={() => shuffle(deck.deck_id)} player={() => givePlayerCard(deck.deck_id)} />
       <div className="people">
         <Dealer dealer={dealer} />
-        <Players player={player} />
+        <React.StrictMode>
+          <Players player={player} />
+        </React.StrictMode>
       </div>
     </div>
   );
