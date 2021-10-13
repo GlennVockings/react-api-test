@@ -4072,14 +4072,7 @@
     "whatwg-mimetype" "^2.3.0"
     "whatwg-url" "^8.0.0"
 
-"debug@^2.2.0":
-  "integrity" "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="
-  "resolved" "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz"
-  "version" "2.6.9"
-  dependencies:
-    "ms" "2.0.0"
-
-"debug@^2.3.3":
+"debug@^2.2.0", "debug@^2.3.3":
   "integrity" "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz"
   "version" "2.6.9"
@@ -7073,6 +7066,13 @@
   dependencies:
     "is-buffer" "^1.1.5"
 
+"kind-of@^3.1.0":
+  "integrity" "sha1-MeohpzS6ubuw8yRm2JOupR5KPGQ="
+  "resolved" "https://registry.npmjs.org/kind-of/-/kind-of-3.2.2.tgz"
+  "version" "3.2.2"
+  dependencies:
+    "is-buffer" "^1.1.5"
+
 "kind-of@^3.2.0":
   "integrity" "sha1-MeohpzS6ubuw8yRm2JOupR5KPGQ="
   "resolved" "https://registry.npmjs.org/kind-of/-/kind-of-3.2.2.tgz"
@@ -7126,6 +7126,13 @@
   dependencies:
     "lodash" "^4.17.5"
     "webpack-sources" "^1.1.0"
+
+"lazy-cache@^2.0.2":
+  "integrity" "sha1-uRkKT5EzVGlIQIWfio9whNiCImQ="
+  "resolved" "https://registry.npmjs.org/lazy-cache/-/lazy-cache-2.0.2.tgz"
+  "version" "2.0.2"
+  dependencies:
+    "set-getter" "^0.1.0"
 
 "leven@^3.1.0":
   "integrity" "sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A=="
@@ -10087,6 +10094,13 @@
   "resolved" "https://registry.npmjs.org/set-blocking/-/set-blocking-2.0.0.tgz"
   "version" "2.0.0"
 
+"set-getter@^0.1.0":
+  "integrity" "sha512-9sVWOy+gthr+0G9DzqqLaYNA7+5OKkSmcqjL9cBpDEaZrr3ShQlyX2cZ/O/ozE41oxn/Tt0LGEM/w4Rub3A3gw=="
+  "resolved" "https://registry.npmjs.org/set-getter/-/set-getter-0.1.1.tgz"
+  "version" "0.1.1"
+  dependencies:
+    "to-object-path" "^0.3.0"
+
 "set-value@^2.0.0", "set-value@^2.0.1":
   "integrity" "sha512-JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw=="
   "resolved" "https://registry.npmjs.org/set-value/-/set-value-2.0.1.tgz"
@@ -10194,6 +10208,16 @@
     "astral-regex" "^2.0.0"
     "is-fullwidth-code-point" "^3.0.0"
 
+"snapdragon-node@^1.0.6":
+  "integrity" "sha1-JEjV72/qf16P1TJqChFIVNonE1Y="
+  "resolved" "https://registry.npmjs.org/snapdragon-node/-/snapdragon-node-1.0.6.tgz"
+  "version" "1.0.6"
+  dependencies:
+    "define-property" "^0.2.5"
+    "isobject" "^3.0.0"
+    "lazy-cache" "^2.0.2"
+    "snapdragon-util" "^1.0.3"
+
 "snapdragon-node@^2.0.1":
   "integrity" "sha512-O27l4xaMYt/RSQ5TR3vpWCAB5Kb/czIcqUFOM/C4fYcLnbZUc1PkjTAMjof2pBWaSTwOUd6qUHcFGVGj7aIwnw=="
   "resolved" "https://registry.npmjs.org/snapdragon-node/-/snapdragon-node-2.1.1.tgz"
@@ -10203,12 +10227,46 @@
     "isobject" "^3.0.0"
     "snapdragon-util" "^3.0.1"
 
+"snapdragon-util@^1.0.3":
+  "integrity" "sha1-iz0tbeyJMMkOBUugUuViyhs6Yh4="
+  "resolved" "https://registry.npmjs.org/snapdragon-util/-/snapdragon-util-1.0.6.tgz"
+  "version" "1.0.6"
+  dependencies:
+    "define-property" "^0.2.5"
+    "kind-of" "^3.1.0"
+    "lazy-cache" "^2.0.2"
+    "snapdragon-node" "^1.0.6"
+
 "snapdragon-util@^3.0.1":
   "integrity" "sha512-mbKkMdQKsjX4BAL4bRYTj21edOf8cN7XHdYUJEe+Zn99hVEYcMvKPct1IqNe7+AZPirn8BCDOQBHQZknqmKlZQ=="
   "resolved" "https://registry.npmjs.org/snapdragon-util/-/snapdragon-util-3.0.1.tgz"
   "version" "3.0.1"
   dependencies:
     "kind-of" "^3.2.0"
+
+"snapdragon-util@^4.0.0":
+  "integrity" "sha512-EthB2f44R7/fdbUrGmlOIJ15k5nkC3/LvWaD6u7wu9fo4Eabk7qq1MTkSGoTWWm1hxb2lxG/r9H3KKhhNOGkgw=="
+  "resolved" "https://registry.npmjs.org/snapdragon-util/-/snapdragon-util-4.0.0.tgz"
+  "version" "4.0.0"
+  dependencies:
+    "kind-of" "^6.0.0"
+
+"snapdragon@^0.12.1":
+  "integrity" "sha512-tx1/y64FQypLGStl7vJlqy3KflqZQ8cmRshrTquByxbjhTusjclsFZ+M3MpwirkF0lxcejpI4dIfNOQ+3Hshyw=="
+  "resolved" "https://registry.npmjs.org/snapdragon/-/snapdragon-0.12.1.tgz"
+  "version" "0.12.1"
+  dependencies:
+    "component-emitter" "^1.2.1"
+    "define-property" "^2.0.2"
+    "extend-shallow" "^3.0.2"
+    "get-value" "^2.0.6"
+    "isobject" "^3.0.0"
+    "map-cache" "^0.2.2"
+    "snapdragon-node" "^1.0.6"
+    "snapdragon-util" "^4.0.0"
+    "source-map" "^0.5.6"
+    "source-map-resolve" "^0.6.0"
+    "use" "^3.1.0"
 
 "snapdragon@^0.8.1":
   "integrity" "sha512-FtyOnWN/wCHTVXOMwvSv26d+ko5vWlIDD6zoUJ7LW8vh+ZBC8QdljveRP+crNrtBwioEUWy/4dMtbBjA4ioNlg=="
